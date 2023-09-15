@@ -1,5 +1,4 @@
 from requests_oauthlib import OAuth1Session
-import time
 
 # Set your API keys and tokens
 API_KEY = "6xyn4Bo1dmWzwJSc4BlenXrk5"
@@ -16,8 +15,6 @@ twitter = OAuth1Session(API_KEY,
 # URLs for tweet actions
 tweet_url = "https://api.twitter.com/2/tweets"
 delete_url_template = "https://api.twitter.com/2/tweets/{id}"
-
-# Function to create a tweet
 
 
 # Function to create a tweet
@@ -45,16 +42,11 @@ def delete_tweet(tweet_id):
         return False, response.json()
 
 
-# Test the functions
-if __name__ == "__main__":
-    tweet_id, tweet_data = create_tweet(f"Hello, world!{time.time()}")
-    if tweet_id:
-        print(f"Tweet created: {tweet_data}")
+# Main function
+def main():
+    print("Hello, world! This is a Twitter bot.")
 
-        # Delete the tweet
-        if delete_tweet(tweet_id):
-            print(f"Tweet {tweet_id} deleted successfully.")
-        else:
-            print(f"Failed to delete tweet {tweet_id}.")
-    else:
-        print("Failed to create tweet.")
+
+# Execute the main function
+if __name__ == "__main__":
+    main()
