@@ -85,8 +85,7 @@ class TestSecrets(unittest.TestCase):
                 tweet_id = f.read()
             assert tweet_id is not None
             # Delete the tweet
-            response,delete_status=twitter.delete_tweet(tweet_id)
-            delete_status=delete_status['data']['deleted']
+            delete_status=twitter.delete_tweet(tweet_id)
             print(delete_status)
             if delete_status:
                 print(f"Tweet {tweet_id} deleted successfully.")
