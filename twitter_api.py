@@ -46,7 +46,7 @@ class TwitterAPI:
     def delete_tweet(self,tweet_id):
         delete_url = self.delete_url_template.format(id=tweet_id)
         response = self.twitter.delete(delete_url)
-        if response.status_code == 204:
+        if response.status_code == 200:
             return True
         else:
-            return False, response.json()
+            return False
