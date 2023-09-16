@@ -1,11 +1,5 @@
-import json
 from requests_oauthlib import OAuth1Session
-
-# Set your API keys and tokens
-API_KEY = "6xyn4Bo1dmWzwJSc4BlenXrk5"
-API_SECRET_KEY = "bR6uTjKBVj3N8p3RZL9n8FxZDqLSDiBSb135YRP7dONtQ9b5Yh"
-ACCESS_TOKEN = "1671427562764128258-3Rg802fTgKRy54IdXI2VnPWQ43sYol"
-ACCESS_TOKEN_SECRET = "LKIRj0CLEUbv0iJ44t8xhq1C1FLR8Dzvwsu1XzTX9ONdl"
+import json
 
 # Load API keys and tokens from JSON file
 with open('secrets.json', 'r') as f:
@@ -15,6 +9,12 @@ API_KEY = secrets['API_KEY']
 API_SECRET_KEY = secrets['API_SECRET_KEY']
 ACCESS_TOKEN = secrets['ACCESS_TOKEN']
 ACCESS_TOKEN_SECRET = secrets['ACCESS_TOKEN_SECRET']
+
+# Create an OAuth1 session
+twitter = OAuth1Session(API_KEY,
+                        client_secret=API_SECRET_KEY,
+                        resource_owner_key=ACCESS_TOKEN,
+                        resource_owner_secret=ACCESS_TOKEN_SECRET)
 
 # URLs for tweet actions
 tweet_url = "https://api.twitter.com/2/tweets"
