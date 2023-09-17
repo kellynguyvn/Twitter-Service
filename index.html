@@ -2,13 +2,31 @@
 <html>
 <head>
     <title>Twitter API</title>
-    <script src="main.js"></script>
 </head>
 <body>
-    <h1>Create a Tweet</h1>
-    <textarea id="tweetText" rows="4" cols="50"></textarea><br>
-    <button onclick="createTweet()">Tweet</button>
-    <button onclick="deleteTweet()">Delete Tweet</button>
-    <div id="message"></div>
+
+<h1>Twitter API</h1>
+
+<!-- Account Selection -->
+<label for="accountSelect">Select Account:</label>
+<select id="accountSelect">
+    <!-- Options will be populated dynamically -->
+</select>
+
+<!-- Tweet Content -->
+<label for="tweetText">Tweet Content:</label>
+<textarea id="tweetText" rows="4" cols="50"></textarea><br>
+
+<!-- Buttons for Operations -->
+<button onclick="createTweet()">Create Tweet</button>
+
+<!-- List of Tweets -->
+<h2>Created Tweets</h2>
+<ul id="tweetList">
+    <!-- Tweets will be populated dynamically -->
+</ul>
+
+<script src="main.js"></script>
+
 </body>
 </html>

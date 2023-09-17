@@ -1,42 +1,64 @@
-let lastTweetId = null;
-
-async function createTweet() {
-    const tweetText = document.getElementById("tweetText").value;
-    const response = await fetch("http://localhost:8000/create_tweet", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ text: tweetText }),
+document.addEventListener('DOMContentLoaded', function() {
+    // Populate accounts when the page loads
+    fetch('/api/getAccounts')
+    .then(response => response.json())
+    .then(data => {
+        const accountSelect = document.getElementById('accountSelect');
+        data.forEach(account => {
+            const option = document.createElement('option');
+            option.value = account;
+            option.text = account;
+            accountSelect.appendChild(option);
+        });
     });
+});
 
-    const data = await response.json();
-    const messageElement = document.getElementById("message");
+function createTweet() {
+    const tweetText = document.getElementById('tweetText').value;
+    const selectedAccount = document.getElementById('accountSelect').value;
 
-    if (response.status === 201) {
-        lastTweetId = data.id;
-        messageElement.textContent = `Tweet ${lastTweetId} created successfully.`;
-    } else {
-        messageElement.textContent = "Failed to create tweet.";
-    }
+    fetch('/api/createTweet', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            tweetText: tweetText,
+            account: selectedAccount
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            appendTweetToList(data.tweetId, tweetText);
+        } else {
+            alert('Failed to create tweet.');
+        }
+    });
 }
 
-async function deleteTweet() {
-    if (!lastTweetId) {
-        alert("No tweet to delete.");
-        return;
-    }
+function appendTweetToList(tweetId, tweetContent) {
+    const listItem = document.createElement('li');
+    listItem.innerHTML = `Tweet ID: ${tweetId}, Content: ${tweetContent} <button onclick="deleteTweet(${tweetId})">Delete</button>`;
+    document.getElementById('tweetList').appendChild(listItem);
+}
 
-    const response = await fetch(`http://localhost:8000/delete_tweet/${lastTweetId}`, {
-        method: "DELETE",
+function deleteTweet(tweetId) {
+    const selectedAccount = document.getElementById('accountSelect').value;
+
+    fetch(`/api/deleteTweet/${tweetId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ account: selectedAccount })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Logic to remove the tweet from the list
+        } else {
+            alert('Failed to delete tweet.');
+        }
     });
-
-    const messageElement = document.getElementById("message");
-
-    if (response.status === 200) {
-        messageElement.textContent = `Tweet ${lastTweetId} deleted successfully.`;
-        lastTweetId = null;
-    } else {
-        messageElement.textContent = "Failed to delete tweet.";
-    }
 }
