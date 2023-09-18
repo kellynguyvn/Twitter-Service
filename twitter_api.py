@@ -28,7 +28,7 @@ class TwitterAPI:
         return twitter
         
     # Function to create a tweet
-    def create_tweet(self,text): 
+    def create_tweet_api(self,text): 
         headers = {'Content-type': 'application/json'}
         payload = {"text": text}
         response = self.twitter.post(self.tweet_url, headers=headers,
@@ -43,7 +43,7 @@ class TwitterAPI:
 
 
     # Function to delete a tweet
-    def delete_tweet(self,tweet_id):
+    def delete_tweet_api(self,tweet_id):
         delete_url = self.delete_url_template.format(id=tweet_id)
         response = self.twitter.delete(delete_url)
         if response.status_code == 200:

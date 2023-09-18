@@ -67,7 +67,7 @@ class TestSecrets(unittest.TestCase):
         #test case to check if the tweet is created successfully
         try:
             twitter = TwitterAPI()
-            tweet_id, tweet_data = twitter.create_tweet("Hello, world!")
+            tweet_id, tweet_data = twitter.create_tweet_api("Hello, world!")
             assert tweet_id is not None
             #write this tweet_id to a file
             with open('test_tweet_id.txt', 'w') as f:
@@ -85,7 +85,7 @@ class TestSecrets(unittest.TestCase):
                 tweet_id = f.read()
             assert tweet_id is not None
             # Delete the tweet
-            delete_status=twitter.delete_tweet(tweet_id)
+            delete_status=twitter.delete_tweet_api(tweet_id)
             print(delete_status)
             if delete_status:
                 print(f"Tweet {tweet_id} deleted successfully.")
