@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <h1>Simple Twitter API</h1>
+
+    <!-- Section for creating a tweet -->
+    <form action="/create" method="post">
+        <h3>Tweets</h3>
+        <input type="text" name="tweetText" placeholder="Type your post here">
+        <button type="submit">Post</button>
+    </form>
+
+    <!-- Section for listing tweets -->
+    <div id="listTweets">
+        <h3>List of Tweets</h3>
+        <ul id="tweetList">
+            {% for tweet in tweets %}
+            <li>
+                <span>Tweet ID: {{ tweet.id }}</span> - <span>{{ tweet.content }}</span>
+                <form action="/delete/{{ tweet.id }}" method="post" style="display:inline;">
+                    <input type="hidden" name="delete_tweet_id" value="{{ tweet.id }}">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</body>
+
+</html>
