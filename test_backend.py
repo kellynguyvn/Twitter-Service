@@ -1,3 +1,4 @@
+#File Written By: Neel Desai
 # Path: test_backend.py
 import unittest
 import json
@@ -14,6 +15,7 @@ class TestSecrets(unittest.TestCase):
         except FileNotFoundError:
             self.fail("File not found.")
         except:
+            #some unexpected error
             self.fail("Unknown error.")
 
     def test_secrets_file_format(self):
@@ -25,6 +27,7 @@ class TestSecrets(unittest.TestCase):
         except FileNotFoundError:
             self.fail("File not found.")
         except:
+            #some unexpected error
             self.fail("Unknown error.")
     
     def test_secrets_file_keys(self):
@@ -39,6 +42,7 @@ class TestSecrets(unittest.TestCase):
         except FileNotFoundError:
             self.fail("File not found.")
         except:
+            #some unexpected error
             self.fail("Unknown error.")
     
     def test_secrets_file_values(self):
